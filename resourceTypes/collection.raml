@@ -1,0 +1,35 @@
+#%RAML 1.0 ResourceType
+post?:
+  description: Add a new <<resourcePathName | !singularize>>
+  displayName: Add new <<resourcePathName | !singularize>>
+  body:
+    application/json:
+      type: <<resourcePathName | !singularize | !uppercamelcase>>
+  responses: 
+    201:
+      headers: 
+        Location:
+          description: URL of the new <<resourcePathName | !singularize>> information
+          example: /<<resourcePathName>>/8f19cb50-3f57-4d38
+      body: 
+        properties:
+             message: string
+    503:
+      body:
+        application/json:  
+          type: !include ../datatypes/CustomErrorMessage.raml 
+          
+get?:
+  description: Retrieve all <<resourcePathName>>
+  displayName:  Retrieve all <<resourcePathName>>
+  responses: 
+    200:
+      body:
+        application/json:  
+          type: array
+          items: <<resourcePathName | !singularize | !uppercamelcase>>  
+            
+    404:
+      body:
+        application/json:
+          type: !include ../datatypes/CustomErrorMessage.raml

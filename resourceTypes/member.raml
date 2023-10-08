@@ -1,0 +1,75 @@
+#%RAML 1.0 ResourceType
+get?:
+  description: Retrieve a/an <<resourcePathName | !singularize>> with a specific        <<resourcePathName | !singularize >> ID
+  displayName: Get a/an <<resourcePathName | !singularize>> by <<resourcePathName | !singularize>> ID
+  responses: 
+    200:
+      body:
+        application/json: 
+          type: <<resourcePathName | !singularize | !uppercamelcase>>
+    404:
+      body:
+        application/json:
+          type: !include ../datatypes/CustomErrorMessage.raml
+patch?:
+  description: Update a specific <<resourcePathName | !singularize>>  info 
+  displayName: Update a/an <<resourcePathName | !singularize>> by <<resourcePathName | !singularize>> ID
+  body:
+  responses: 
+    204:
+    501:
+      body:
+        application/json:
+          type: !include ../datatypes/CustomErrorMessage.raml
+delete?:
+  description: Delete a specific <<resourcePathName | !singularize>>
+  displayName: Delete a/an <<resourcePathName | !singularize>> by <<resourcePathName | !singularize>> ID
+  responses: 
+    200:
+      body:
+    404:
+      body:
+        application/json:
+          type: !include ../datatypes/CustomErrorMessage.raml
+put?:
+  description: Update a specific <<resourcePathName | !singularize>>  info 
+  displayName: Update a/an <<resourcePathName | !singularize>> by <<resourcePathName | !singularize>> ID
+  body:
+    application/json:
+      type: <<resourcePathName | !singularize | !uppercamelcase>>
+  responses: 
+    200:
+      body:
+        properties:
+          message: string
+        example:          
+               {
+                "message" : "<<resourcePathName | !singularize | !uppercamelcase>> updated successfully"
+               }
+    201:
+      headers: 
+        Location:
+      body:
+    501:
+      body:
+        application/json:
+          type: !include ../datatypes/CustomErrorMessage.raml
+post?:
+  description: Add a new <<resourcePathName | !singularize>>
+  displayName: Add new <<resourcePathName | !singularize>>
+  body:
+    application/json:
+      type: <<resourcePathName | !singularize | !uppercamelcase>>
+  responses: 
+    201:
+      headers: 
+        Location:
+          description: URL of the new <<resourcePathName | !singularize>> information
+          example: /<<resourcePathName>>/8f19cb50-3f57-4d38
+      body: 
+        properties:
+             message: string
+    503:
+      body:
+        application/json:  
+          type: !include ../datatypes/CustomErrorMessage.raml

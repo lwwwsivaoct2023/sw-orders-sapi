@@ -1,2 +1,44 @@
 #%RAML 1.0
 title: swiggy-orders-sapi
+baseUri: http://localhost:9093
+mediaType: 
+- application/json
+
+types:
+  Order: !include datatypes/Order.raml
+  Orderitem: !include datatypes/OrderItem.raml
+resourceTypes:
+  collection: !include resourceTypes/collection.raml 
+  member: !include resourceTypes/member.raml
+traits:
+  pageable: !include traits/Pageable.raml
+  
+/customers:
+  /{id}:
+    /orders:
+      type: collection
+      get:
+        is:
+          - pageable  
+
+/orders:
+  type: collection    
+  get:
+    is:
+      - pageable
+  post:
+  
+  /{orderId}:
+    type: member      
+    get:
+    put:
+    /orderitems:
+      type: collection        
+      get:
+        is:
+          - pageable
+      post:
+      /{id}:
+        get:
+        delete:
+        put:
