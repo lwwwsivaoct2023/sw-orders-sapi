@@ -1,0 +1,10 @@
+{
+  "main": "swiggy-orders-sapi.raml",
+  "name": "swiggy-orders-sapi",
+  "groupId": "d0205d5f-f064-4d78-b0f0-1e4d55cdf281",
+  "assetId": "swiggy-orders-sapi",
+  "version": "1.0.0",
+  "classifier": "raml",
+  "tags": [],
+  "descriptorVersion": "1.0.0"
+}
