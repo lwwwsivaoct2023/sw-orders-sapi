@@ -1,0 +1,6 @@
+%dw 2.0
+
+type auto_bc1196e7_ab5a_4a14_b4ee_8e0b30f3f999_Output_Payload = Array<{  deliveryAddressId: Number,   orderTime: String,   orderId: Number,   orderTotalPrice: Number,   customerId: Number,   orderStatus: String,   restaurantId: Number,   orderItems: Array<{    quantity: Number,     orderId?: Number,     orderItemId: Number,     menuId: Number,     restaurantId: Number,     orderItemPrice: Number,     menuItemId: Number,     _?: Any  }>, 
+  _?: Any
+}>
+
