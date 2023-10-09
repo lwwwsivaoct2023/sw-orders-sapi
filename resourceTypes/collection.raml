@@ -4,20 +4,19 @@ post?:
   displayName: Add new <<resourcePathName | !singularize>>
   body:
     application/json:
-      type: <<resourcePathName | !singularize | !uppercamelcase>>
-  responses: 
+      type: <<resourcePathName | !singularize | !uppercamelcase>>Request
+  responses:  
     201:
       headers: 
         Location:
           description: URL of the new <<resourcePathName | !singularize>> information
           example: /<<resourcePathName>>/8f19cb50-3f57-4d38
       body: 
-        properties:
-             message: string
-    503:
+        type: <<resourcePathName | !singularize | !uppercamelcase>>
+    500:
       body:
         application/json:  
-          type: !include ../datatypes/CustomErrorMessage.raml 
+          type: !include ../datatypes/ErrorMessage.raml 
           
 get?:
   description: Retrieve all <<resourcePathName>>
@@ -32,4 +31,4 @@ get?:
     404:
       body:
         application/json:
-          type: !include ../datatypes/CustomErrorMessage.raml
+          type: !include ../datatypes/ErrorMessage.raml

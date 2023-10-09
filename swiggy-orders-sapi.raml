@@ -1,12 +1,14 @@
 #%RAML 1.0
 title: swiggy-orders-sapi
-baseUri: http://localhost:9093
+baseUri: http://localhost:8081
 mediaType: 
 - application/json
 
 types:
   Order: !include datatypes/Order.raml
+  OrderRequest: !include datatypes/OrderRequest.raml
   OrderItem: !include datatypes/OrderItem.raml
+  OrderItemRequest: !include datatypes/OrderItemRequest.raml
 resourceTypes:
   collection: !include resourceTypes/collection.raml 
   member: !include resourceTypes/member.raml
