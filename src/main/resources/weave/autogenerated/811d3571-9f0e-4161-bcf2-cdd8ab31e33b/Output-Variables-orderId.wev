@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_811d3571_9f0e_4161_bcf2_cdd8ab31e33b_Output_Variables_orderId = Number | Null
+
