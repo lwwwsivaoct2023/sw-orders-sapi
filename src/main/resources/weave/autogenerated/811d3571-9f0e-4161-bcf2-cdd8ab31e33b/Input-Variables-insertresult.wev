@@ -1,8 +1,0 @@
-%dw 2.0
-
-type auto_811d3571_9f0e_4161_bcf2_cdd8ab31e33b_Input_Variables_insertresult = {|
-  affectedRows?: Number, 
-  generatedKeys?: { _?: Number }
-|} {"typeAlias": "StatementResult",
-"typeId": "org.mule.extension.db.api.StatementResult"}
-

@@ -1,4 +1,0 @@
-%dw 2.0
-
-type auto_078ef654_65d9_4891_a6d5_ee92daced268_Output_Variables_orderItems = Array<{|  menuId: Number | Null,   menuItemId: String | Null,   orderItemId: Number,   orderId: Number | Null,   orderItemPrice: Number | Null,   restaurantId: Number | Null,   quantity: Number | Null|}>
-

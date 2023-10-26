@@ -1,4 +1,0 @@
-%dw 2.0
-
-type auto_fa8e3abc_cfe1_4f62_aaa9_6cc1ede17de1_Input_Variables_orderId = Number | Null
-

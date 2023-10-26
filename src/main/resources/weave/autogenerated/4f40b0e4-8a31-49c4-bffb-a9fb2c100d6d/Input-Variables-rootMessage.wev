@@ -1,4 +1,0 @@
-%dw 2.0
-
-type auto_4f40b0e4_8a31_49c4_bffb_a9fb2c100d6d_Input_Variables_rootMessage = {|  |} {"typeId": "org.mule.runtime.api.message.Message"}
-
