@@ -1,14 +1,14 @@
 {
-  "main" : "swiggy-orders-sapi.raml",
-  "name" : "swiggy-orders-sapi",
-  "classifier" : "raml",
-  "tags" : [ ],
-  "groupId" : "d0205d5f-f064-4d78-b0f0-1e4d55cdf281",
-  "assetId" : "swiggy-orders-sapi",
-  "version" : "3.0.0",
-  "apiVersion" : "v2",
-  "dependencies" : [ ],
-  "organizationId" : "d0205d5f-f064-4d78-b0f0-1e4d55cdf281",
-  "originalFormatVersion" : "1.0",
-  "descriptorVersion" : "1.0.0"
+  "main": "swiggy-orders-sapi.raml",
+  "name": "swiggy-orders-sapi",
+  "classifier": "raml",
+  "tags": [],
+  "groupId": "d0205d5f-f064-4d78-b0f0-1e4d55cdf281",
+  "assetId": "swiggy-orders-sapi",
+  "version": "3.0.0",
+  "apiVersion": "v2",
+  "dependencies": [],
+  "organizationId": "d0205d5f-f064-4d78-b0f0-1e4d55cdf281",
+  "originalFormatVersion": "1.0",
+  "descriptorVersion": "1.0.0"
 }
