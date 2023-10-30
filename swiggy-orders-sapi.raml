@@ -10,19 +10,28 @@ types:
   ErrorMessage: !include dataTypes/ErrorMessage.raml
 
 /customers:
-   /{id}:
-    /orders:
-     get:
-       responses:
-         200:
-          body:
-           type: Order[]
-           
-         500:
-          body:
+ /{id}:
+  /orders:
+   get:
+     responses:
+       200:
+        body:
+         type: Order[]
+       404:
+         body:
            type: ErrorMessage
            example:
              {
-                "status": "500",
-                "message": "There was some server side problem. please try later"
+                "status": "404",
+              "message": "Customer not found"
+
               } 
+         
+       500:
+        body:
+         type: ErrorMessage
+         example:
+           {
+              "status": "500",
+              "message": "There was some server side problem. please try later"
+            } 
