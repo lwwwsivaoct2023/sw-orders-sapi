@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="getallcustomer" doc:id="826c0b05-0d1b-4cb1-ad04-0223da6b2bfe" >
+		<db:select doc:id="57561687-4468-40e2-8a7d-88afcb2de12c" doc:name="getcustomer" config-ref="Database_Config">
+			<db:sql ><![CDATA[select o.order_id, o.customer_id,o.restaurant_id,o.delivery_address_id,o.order_total_price,o.order_status,o.order_time,
+oi.order_item_id,oi.menu_item_id,oi.quantity,oi.order_item_price,oi.menu_id
+ from orders o left join order_items oi on o.order_id= oi.order_id where o.customer_id = :custid]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+custid: vars.id as Number
+
+}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="36c9a1d4-e2f1-4450-ac7e-f02eecc24c11" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var groupedOrders = payload groupBy (item) -> item.order_id
+var ordersMap = groupedOrders mapObject (V,K,I) -> {
+	(K) : {
+		
+  "orderId": V[0].order_id,
+  "customerId": V[0].customer_id,
+  "restaurantId": V[0].restaurant_id,
+  "deliveryAddressId": V[0].delivery_address_id,
+  "orderTotalPrice": V[0].order_total_price,
+  "orderStatus": V[0].order_status,
+  "orderTime": V[0].order_time,
+  orderItems: V map (order)->{
+  	 "orderItemId": order.order_item_id,
+      "orderId": order.order_id,
+      "menuId": order.menu_id,
+      "menuItemId": order.menu_item_id,
+      "restaurantId": order.restaurant_id,
+      "quantity": order.quantity,
+      "orderItemPrice": order.order_item_price
+  }
+  
+}
+	
+}
+
+
+---
+ordersMap pluck (V,K,I) -> V
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="113aea31-1008-43ea-935b-a4302cf56f29" >
+				<ee:transform doc:name="Transform Message" doc:id="c884c689-264f-4e49-898c-0ebe50479833" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"status": "500",
+
+    "message": "There was some server side problem. Please try later"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+</mule>
