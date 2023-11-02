@@ -1,0 +1,13 @@
+#%RAML 1.0 DataType
+properties:
+  
+  customerId: integer
+  restaurantId: string
+  deliveryAddressId: string
+  orderTotalPrice: integer
+  orderStatus: string
+  orderTime: string
+  OrderItems:
+   type: array
+   items: !include OrderItemRequest.raml
+   

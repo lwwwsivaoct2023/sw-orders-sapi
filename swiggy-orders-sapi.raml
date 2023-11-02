@@ -4,34 +4,29 @@ baseUri: http://localhost:8082
 mediaType: 
 - application/json
 
+resourceTypes:
+ collection: !include resourceTypes/collection.raml
+traits:
+ pageable: !include traits/pageable.raml
+  
 types:
   Order: !include dataTypes/Order.raml
   OrderItem: !include dataTypes/OrderItem.raml
   ErrorMessage: !include dataTypes/ErrorMessage.raml
+  OrderRequest: !include dataTypes/OrderRequest.raml
+  OrderItemRequest: !include dataTypes/OrderItemRequest.raml
 
 /customers:
  /{id}:
   /orders:
-   get:
-     responses:
-       200:
-        body:
-         type: Order[]
-       404:
-         body:
-           type: ErrorMessage
-           example:
-             {
-                "status": "404",
-              "message": "Customer not found"
+    type: collection
+    get:
+       
 
-              } 
-         
-       500:
-        body:
-         type: ErrorMessage
-         example:
-           {
-              "status": "500",
-              "message": "There was some server side problem. please try later"
-            } 
+/Orders:
+  type: collection
+  post:
+  get:
+     is: pageable
+  
+       
