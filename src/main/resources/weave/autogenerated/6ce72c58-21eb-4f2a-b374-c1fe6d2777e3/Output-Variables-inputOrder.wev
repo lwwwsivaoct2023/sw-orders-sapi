@@ -1,0 +1,12 @@
+%dw 2.0
+
+type auto_6ce72c58_21eb_4f2a_b374_c1fe6d2777e3_Output_Variables_inputOrder = {|
+  customerId: Number {"typeId": "int"}, 
+  restaurantId: Number {"typeId": "int"}, 
+  deliveryAddressId: Number {"typeId": "int"}, 
+  orderTotalPrice: Number {"typeId": "int"}, 
+  orderStatus: String, 
+  orderTime: String, 
+  OrderItems: Array<{|    menuId: Number {"typeId": "int"},     menuItemId: Number {"typeId": "int"},     restaurantId: Number {"typeId": "int"},     quantity: Number {"typeId": "int"},     orderItemPrice: Number {"typeId": "int"}  |}>
+|} {"example": "{\\\"customerId\\\":0,\\\"restaurantId\\\":0,\\\"deliveryAddressId\\\":0,\\\"orderTotalPrice\\\":0,\\\"orderStatus\\\":\\\"\\\",\\\"orderTime\\\":\\\"\\\",\\\"OrderItems\\\":[{\\\"menuId\\\":0,\\\"menuItemId\\\":0,\\\"restaurantId\\\":0,\\\"quantity\\\":0,\\\"orderItemPrice\\\":0}]}"}
+

@@ -1,0 +1,13 @@
+%dw 2.0
+
+type auto_6ce72c58_21eb_4f2a_b374_c1fe6d2777e3_Input_Payload = {
+  deliveryAddressId: Number, 
+  orderTime: String, 
+  orderTotalPrice: Number, 
+  customerId: Number, 
+  orderStatus: String, 
+  restaurantId: Number, 
+  orderItems: Array<{    quantity: Number,     menuId: Number,     restaurantId: Number,     orderItemPrice: Number,     menuItemId: Number,     _?: Any  }>, 
+  _?: Any
+}
+

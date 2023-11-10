@@ -1,0 +1,5 @@
+db:
+  host: localhost
+  username: root
+  password: Adomarz@211923
+  name: swiggy-restaurantdb

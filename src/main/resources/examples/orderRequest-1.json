@@ -1,0 +1,17 @@
+{
+  "customerId": 0,
+  "restaurantId": 0,
+  "deliveryAddressId": 0,
+  "orderTotalPrice": 0,
+  "orderStatus": "",
+  "orderTime": "",
+  "OrderItems": [
+    {
+      "menuId": 0,
+      "menuItemId": 0,
+      "restaurantId": 0,
+      "quantity": 0,
+      "orderItemPrice": 0
+    }
+  ]
+}
