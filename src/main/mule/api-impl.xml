@@ -70,6 +70,7 @@ output application/json
 } ++ vars.inputOrder]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="4b6a43d5-8d37-4d62-bc24-a70c64e6ba92" message="#[payload]"/>
 	
 </flow>
 	<sub-flow name="mapdbselectresponseOrder" doc:id="82f4d774-0251-4b57-867a-020bf679e4d2" >
