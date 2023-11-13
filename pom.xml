@@ -55,13 +55,6 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>d0205d5f-f064-4d78-b0f0-1e4d55cdf281</groupId>
-			<artifactId>swiggy-orders-sapi</artifactId>
-			<version>1.0.5</version>
-			<classifier>raml</classifier>
-			<type>zip</type>
-		</dependency>
-		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-apikit-module</artifactId>
 			<version>1.8.2</version>
@@ -77,6 +70,13 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.30</version>
+		</dependency>
+		<dependency>
+			<groupId>d0205d5f-f064-4d78-b0f0-1e4d55cdf281</groupId>
+			<artifactId>swiggy-orders-sapi</artifactId>
+			<version>3.0.2</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
 		</dependency>
 	</dependencies>
 
