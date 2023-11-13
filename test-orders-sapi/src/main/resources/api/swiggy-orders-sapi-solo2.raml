@@ -1,0 +1,35 @@
+#%RAML 1.0
+title: Swiggy-orders-sapi-solo2
+baseUri: http://localhost:8082
+mediaType: 
+- application/json
+
+resourceTypes:
+ collection: !include resourceTypes/collection.raml
+traits:
+ pageable: !include traits/pageable.raml
+ 
+  
+types:
+  Order: !include /dataTypes/Order.raml
+  OrderItem: !include dataTypes/OrderItem.raml
+  ErrorMessage: !include dataTypes/ErrorMessage.raml
+  OrderRequest: !include dataTypes/OrderRequest.raml
+  OrderItemRequest: !include dataTypes/OrderItemRequest.raml
+
+/customers:
+ /{id}:
+  /orders:
+    type: collection
+    get:
+       
+
+/Orders:
+  type: collection
+  post:
+  get:
+     is: pageable
+  delete:   
+   
+  
+       
