@@ -129,14 +129,15 @@ output application/json
                 <ee:set-variable variableName="orderId">attributes.uriParams.'orderId'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <ee:transform doc:name="Transform Message">
+        <flow-ref doc:name="DeleteOrderById" doc:id="7dd2d3a2-8835-4d01-a61a-0d564e400326" name="DeleteOrderById"/>
+		<ee:transform doc:name="Transform Message">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
   status: "200",
-  message: "Order with id {id} is Deleted"
+  message: "order is deleted"
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
@@ -196,17 +197,7 @@ output application/json
                 <ee:set-variable variableName="orderId">attributes.uriParams.'orderId'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  status: "500",
-  message: "There was some server side problem. Please try later"
-}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <flow-ref doc:name="FindOrderById" doc:id="53e4232a-d091-49e0-9def-0d1c8ae44431" name="FindOrderById"/>
     </flow>
     <flow name="post:\orders\(orderId)\orderItems:application\json:swiggy-orders-sapi-config">
         <ee:transform doc:name="Transform Message">

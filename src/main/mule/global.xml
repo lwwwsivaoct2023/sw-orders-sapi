@@ -11,10 +11,31 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<db:my-sql-connection host="${db.host}" port="3306" user="${db.username}" password="${db.password}" database="${db.name}" />
 	</db:config>
 	<error-handler name="globalError_Handler" doc:id="7f4ffdc1-ec0e-4552-a0ec-cd0af75240ce" >
-		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="3010ee49-335f-44a1-8f3d-4efcc38ccc67" >
-			<ee:transform doc:name="Transform Message" doc:id="166c22cc-2f64-49fa-9cdf-af14c864c227" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="3010ee49-335f-44a1-8f3d-4efcc38ccc67" type="APP: DOESNOTEXIST">
+			<ee:transform doc:name="Transform Message" doc:id="ef20397a-e5ab-44bf-b3c4-184f10629867" >
 				<ee:message >
 					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+ "status": "404",
+ "message": error.description
+}]]></ee:set-payload>
+				</ee:message>
+				<ee:variables >
+					<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
+output application/java
+---
+"404"
+]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="69d62196-d9e3-425c-997b-24e7f5e06608">
+			<ee:transform doc:name="Transform Message" doc:id="166c22cc-2f64-49fa-9cdf-af14c864c227">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
@@ -25,5 +46,6 @@ output application/json
 				</ee:message>
 			</ee:transform>
 		</on-error-propagate>
-	</error-handler>
+	
+</error-handler>
 </mule>

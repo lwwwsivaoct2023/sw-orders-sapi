@@ -5,6 +5,28 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="DeleteOrderById" doc:id="fd3b8f1e-8ad5-40b1-b95e-171d8cccfb46" >
+		<db:delete doc:name="Delete" doc:id="6744a1bd-51a6-4181-b753-17365c19db5c" config-ref="Database_Config">
+			<db:sql ><![CDATA[DELETE FROM `order_items` WHERE order_id = :orderid]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	orderid: vars.orderId
+}]]]></db:input-parameters>
+		</db:delete>
+		<db:delete doc:name="Delete" doc:id="90aec0f9-025d-448a-8f50-d9405c2ae542" config-ref="Database_Config">
+			<db:sql ><![CDATA[DELETE FROM `orders` WHERE order_id = :orderid]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{
+	orderid: vars.orderId
+}]]]></db:input-parameters>
+		</db:delete>
+		<choice doc:name="Choice" doc:id="0eb6bf75-b181-484b-b0f7-d18e2aa152c1" >
+			<when expression="#[payload == 0]">
+				<raise-error doc:name="Raise error" doc:id="5e4aa25f-d1b6-448a-b90a-adbfcf642f29" type="APP: DOESNOTEXIST" description="There is no order with that pariticular Id"/>
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger" doc:id="23b1b969-6ccb-4d79-a8ce-9151fd557094" message="Delete order"/>
+			</otherwise>
+		</choice>
+	</flow>
 	<flow name="AddOrder" doc:id="6ce72c58-21eb-4f2a-b374-c1fe6d2777e3" >
 		<ee:transform doc:name="Transform Message" doc:id="b469de87-4707-43a2-bffe-fbb666ad663b" >
 			<ee:message >
@@ -73,6 +95,24 @@ output application/json
 		<logger level="INFO" doc:name="Logger" doc:id="4b6a43d5-8d37-4d62-bc24-a70c64e6ba92" message="#[payload]"/>
 	
 </flow>
+	<flow name="FindOrderById" doc:id="bee0ddaa-50ae-4431-9f6f-d8d1d935fde8" >
+		<db:select doc:name="GetAllOrderById" doc:id="9abb4641-1256-4c2f-acaa-ba51aef1f38d" config-ref="Database_Config">
+			<db:sql><![CDATA[select o.order_id, o.customer_id,o.restaurant_id,o.delivery_address_id,o.order_total_price,o.order_status,o.order_time,
+oi.order_item_id,oi.menu_item_id,oi.quantity,oi.order_item_price,oi.menu_id
+ from orders o left join order_items oi on o.order_id= oi.order_id = :orderid]]></db:sql>
+			<db:input-parameters><![CDATA[#[{
+	orderid: vars.orderId
+}]]]></db:input-parameters>
+		</db:select>
+		<choice doc:name="Choice" doc:id="2c9ce36e-b956-4e18-ae4f-178198f535b1" >
+			<when expression="#[isEmpty(payload)]">
+				<raise-error doc:name="Raise error" doc:id="4bff4fe5-35f7-48d0-967f-fbd6ef76b3a7" type="APP: DOESNOTEXIST" description="There is no order with that pariticular Id"/>
+			</when>
+			<otherwise>
+				<flow-ref doc:name="mapdbselectresponseOrder" doc:id="893b316a-90b4-4c5d-a1a2-f20346c88a3b" name="mapdbselectresponseOrder" />
+			</otherwise>
+		</choice>
+	</flow>
 	<sub-flow name="mapdbselectresponseOrder" doc:id="82f4d774-0251-4b57-867a-020bf679e4d2" >
 		<ee:transform doc:name="Transform Message" doc:id="cba45d36-5937-4e5b-a561-740d26398f35">
 			<ee:message>
