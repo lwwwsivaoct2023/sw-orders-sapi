@@ -28,6 +28,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		</choice>
 	</flow>
 	<flow name="AddOrder" doc:id="6ce72c58-21eb-4f2a-b374-c1fe6d2777e3" >
+		<flow-ref doc:name="FindOrderById" doc:id="f0aea270-f06e-4314-b9e5-6c2235369081" name="FindOrderById"/>
 		<ee:transform doc:name="Transform Message" doc:id="b469de87-4707-43a2-bffe-fbb666ad663b" >
 			<ee:message >
 			</ee:message>
@@ -67,11 +68,11 @@ vars.insertresult.generatedKeys.GENERATED_KEY]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<foreach doc:name="For Each" doc:id="9697016b-1de9-4678-b526-48890d662d2c" collection="#[vars.inputOrder.OrderItems]">
-			<db:insert doc:name="Insert" doc:id="5e74947f-1e59-4049-8154-caba1f31453f" config-ref="Database_Config">
+			<db:insert doc:name="InsertOrderItem" doc:id="5e74947f-1e59-4049-8154-caba1f31453f" config-ref="Database_Config">
 				<db:sql ><![CDATA[INSERT INTO `order_items` (`order_item_id`,`order_id`,`menu_item_id`,`quantity`,`order_item_price`,`menu_id`,`restaurant_id`)
 VALUES (:order_id,:menu_item_id,:quantity,:order_item_price , :menu_id ,:restaurant_id);]]></db:sql>
 				<db:input-parameters ><![CDATA[#[{
-	order_id: vars.orderid,
+	order_id: vars.orderId,
 	menu_item_id: payload.menuItemId,
 	quantity: payload.quantity,
 	order_item_price: payload.menuItemId,
@@ -112,6 +113,29 @@ oi.order_item_id,oi.menu_item_id,oi.quantity,oi.order_item_price,oi.menu_id
 				<flow-ref doc:name="mapdbselectresponseOrder" doc:id="893b316a-90b4-4c5d-a1a2-f20346c88a3b" name="mapdbselectresponseOrder" />
 			</otherwise>
 		</choice>
+	</flow>
+	<flow name="GetAllOrderById" doc:id="e6fde5cb-a69a-45a6-89df-c4a6266dcb9d" >
+		<flow-ref doc:name="Flow Reference" doc:id="39298f4a-712c-464e-a632-185bbc0f7d4c" name="FindOrderById"/>
+		<db:select doc:name="GetAllOrderById" doc:id="42482df7-bee9-4250-9082-042a2300f67a" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from order_items where order_id = :orderid]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="6bb34b47-735a-422d-88fd-b4f0927b45a5">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+payload map (item)-> {
+	"orderItemId": item.order_item_id,
+	"orderId": item.order_id,
+	"menuId": item.menu_item_id,
+	"quantity": item.quantity,
+	"orderItemPrice": item.order_item_price,
+	"menuId": item.menu_item_id,
+	"restaurantId": item.restaurant_id
+		
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
 	</flow>
 	<sub-flow name="mapdbselectresponseOrder" doc:id="82f4d774-0251-4b57-867a-020bf679e4d2" >
 		<ee:transform doc:name="Transform Message" doc:id="cba45d36-5937-4e5b-a561-740d26398f35">

@@ -1,14 +1,13 @@
 %dw 2.0
 
-type auto_6ce72c58_21eb_4f2a_b374_c1fe6d2777e3_Output_Payload = {
-  deliveryAddressId: Number, 
+type auto_6ce72c58_21eb_4f2a_b374_c1fe6d2777e3_Output_Payload = {|
+  customerId: Number {"typeId": "int"}, 
+  deliveryAddressId: Number {"typeId": "int"}, 
   orderTime: String, 
-  orderId: Number, 
-  orderTotalPrice: Number, 
-  customerId: Number, 
+  OrderItems: Array<{|    menuId: Number {"typeId": "int"},     menuItemId: Number {"typeId": "int"},     restaurantId: Number {"typeId": "int"},     quantity: Number {"typeId": "int"},     orderItemPrice: Number {"typeId": "int"}  |}>, 
+  orderId: Number | Null, 
+  restaurantId: Number {"typeId": "int"}, 
   orderStatus: String, 
-  restaurantId: Number, 
-  orderItems: Array<{    quantity: Number,     orderId: Number,     orderItemId: Number,     menuId: Number,     restaurantId: Number,     orderItemPrice: Number,     menuItemId: Number,     _?: Any  }>, 
-  _?: Any
-}
+  orderTotalPrice: Number {"typeId": "int"}
+|}
 

@@ -148,17 +148,7 @@ output application/json
                 <ee:set-variable variableName="orderId">attributes.uriParams.'orderId'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  status: "500",
-  message: "There was some server side problem. Please try later"
-}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <flow-ref doc:name="GetAllOrderById" doc:id="a783c50f-8a9a-421c-b4d3-90360cd74498" name="GetAllOrderById"/>
     </flow>
     <flow name="get:\customers\(id)\orders:swiggy-orders-sapi-config">
         <ee:transform doc:name="Transform Message">
@@ -205,7 +195,8 @@ output application/json
                 <ee:set-variable variableName="orderId">attributes.uriParams.'orderId'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <ee:transform doc:name="Transform Message">
+        <flow-ref doc:name="AddOrderItems" doc:id="11fefb96-67cd-4eaa-9419-0ed9daa201b0" name="AddOrder"/>
+		<ee:transform doc:name="Transform Message">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
